@@ -1,0 +1,197 @@
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+font-family: system-ui, -apple-system, Arial, sans-serif;
+}
+
+body {
+background: #0f172a;
+color: #e2e8f0;
+}
+
+#app {
+max-width: 900px;
+margin: 0 auto;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+}
+
+.topbar {
+padding: 16px;
+text-align: center;
+font-size: 20px;
+font-weight: 600;
+border-bottom: 1px solid #1e293b;
+background: #020617;
+}
+
+.tabs {
+display: flex;
+overflow-x: auto;
+border-bottom: 1px solid #1e293b;
+background: #020617;
+}
+
+.tabs button {
+flex: 1;
+padding: 12px;
+background: none;
+border: none;
+color: #94a3b8;
+font-size: 14px;
+cursor: pointer;
+}
+
+.tabs button.active {
+color: #ffffff;
+border-bottom: 2px solid #38bdf8;
+}
+
+.screens {
+flex: 1;
+padding: 16px;
+}
+
+.screen {
+display: none;
+}
+
+.screen.active {
+display: block;
+}
+
+button {
+background: #38bdf8;
+border: none;
+padding: 10px 14px;
+border-radius: 8px;
+color: #020617;
+font-weight: 600;
+cursor: pointer;
+}
+
+button:active {
+transform: scale(0.98);
+}
+
+input, select {
+width: 100%;
+padding: 10px;
+margin-top: 6px;
+margin-bottom: 12px;
+border-radius: 8px;
+border: 1px solid #1e293b;
+background: #020617;
+color: #e2e8f0;
+}
+
+.settings-item {
+margin-bottom: 16px;
+}
+
+.more-item {
+padding: 14px;
+border-bottom: 1px solid #1e293b;
+cursor: pointer;
+}
+
+.more-item:hover {
+background: #020617;
+}
+
+#transactions-list div,
+#goals-list div,
+#bills-list div,
+#categories-income div,
+#categories-expense div {
+padding: 12px;
+border-bottom: 1px solid #1e293b;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.card {
+background: #020617;
+border: 1px solid #1e293b;
+border-radius: 10px;
+padding: 14px;
+margin-bottom: 14px;
+}
+
+.balance {
+font-size: 28px;
+font-weight: 700;
+margin-bottom: 10px;
+}
+
+.summary {
+display: flex;
+justify-content: space-between;
+font-size: 14px;
+}
+
+.summary div {
+text-align: center;
+}
+
+.list-empty {
+text-align: center;
+padding: 20px;
+color: #64748b;
+}
+
+.modal-overlay {
+position: fixed;
+inset: 0;
+background: rgba(0,0,0,0.6);
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.modal {
+background: #020617;
+border: 1px solid #1e293b;
+border-radius: 10px;
+padding: 20px;
+width: 90%;
+max-width: 400px;
+}
+
+.modal h3 {
+margin-bottom: 12px;
+}
+
+.modal-actions {
+display: flex;
+gap: 10px;
+margin-top: 10px;
+}
+
+.modal-actions button {
+flex: 1;
+}
+
+.chart {
+height: 180px;
+background: #020617;
+border: 1px solid #1e293b;
+border-radius: 10px;
+margin-bottom: 14px;
+}
+
+@media (max-width: 600px) {
+
+.tabs button {
+font-size: 13px;
+padding: 10px;
+}
+
+.balance {
+font-size: 24px;
+}
+
+}
