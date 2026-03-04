@@ -243,7 +243,6 @@ fields: [
 onSubmit: function (values) {
 let total = parseAmount(values.total)
 if (total < 0) total = 0
-let d = AppState.getData()
 let b2 = getMonthBudget(monthKey)
 b2.total = total
 AppState.save()
@@ -271,7 +270,7 @@ info.style.color = "#94a3b8"
 info.style.fontSize = "13px"
 info.style.lineHeight = "1.35"
 info.style.marginBottom = "10px"
-info.textContent = "Set limits for your expense categories. Spent values are calculated from this month transactions."
+info.textContent = "Tap a category to set its limit."
 card.appendChild(info)
 
 if (!b.categories) b.categories = {}
@@ -283,27 +282,42 @@ let limit = Number(b.categories[id]) || 0
 let spent = Number(spentByCat[id]) || 0
 let remaining = limit - spent
 
+let pct = 0
+if (limit > 0) pct = Math.max(0, Math.min(100, Math.round((spent / limit) * 100)))
+
 let row = AppUtils.el("div")
-row.className = "item"
+row.className = "budget-row"
 
 let left = AppUtils.el("div")
-left.className = "item__left"
+left.className = "budget-left"
 
 let title = AppUtils.el("div")
-title.className = "item__note"
+title.className = "budget-title"
 title.textContent = (nameMap[id] || "Category")
 
 let sub = AppUtils.el("div")
-sub.className = "item__date"
-sub.textContent = "Limit " + AppUtils.formatMoney(limit, currency) + " • Spent " + AppUtils.formatMoney(spent, currency)
+sub.className = "budget-sub"
+if (limit > 0) {
+sub.textContent = "Spent " + AppUtils.formatMoney(spent, currency) + " of " + AppUtils.formatMoney(limit, currency)
+} else {
+sub.textContent = "No limit • Spent " + AppUtils.formatMoney(spent, currency)
+}
+
+let progress = AppUtils.el("div")
+progress.className = "budget-progress"
+let bar = AppUtils.el("div")
+bar.style.width = (limit > 0 ? pct : 0) + "%"
+bar.style.background = (limit > 0 && spent > limit) ? "rgba(251,113,133,0.85)" : "rgba(56,189,248,0.85)"
+progress.appendChild(bar)
 
 left.appendChild(title)
 left.appendChild(sub)
+left.appendChild(progress)
 
 let right = AppUtils.el("div")
-right.className = "item__sum"
+right.className = "budget-right"
 right.textContent = AppUtils.formatMoney(remaining, currency)
-right.style.color = remaining < 0 ? "#fb7185" : "#34d399"
+right.style.color = (limit > 0 && remaining < 0) ? "#fb7185" : "#34d399"
 
 row.appendChild(left)
 row.appendChild(right)
@@ -331,7 +345,7 @@ openBulkSet(monthKey)
 })
 
 let resetBtn = AppUtils.el("button")
-resetBtn.textContent = "Reset Category Limits"
+resetBtn.textContent = "Reset Limits"
 resetBtn.style.background = "rgba(251,113,133,0.16)"
 resetBtn.style.color = "#fb7185"
 resetBtn.addEventListener("click", function () {
